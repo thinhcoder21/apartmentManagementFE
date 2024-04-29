@@ -3,7 +3,7 @@ import Header from "../Header";
 import React from "react";
 import Sidebar from "../SideBar";
 
-const AddUser = () => {
+const AllService = () => {
   return (
     <div className="bg-[#d6d9e0] h-screen flex items-center ">
       <div className="flex bg-[#f4f6fa] w-full h-full overflow-y-hidden">
@@ -17,4 +17,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser;
+export default AllService;

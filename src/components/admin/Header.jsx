@@ -1,13 +1,14 @@
 import Swal from "sweetalert2";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Avatar } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { MyUserContext } from "../../App";
+import { useContext } from "react";
+
 
 const Header = () => {
-  const dispatch = useDispatch();
+  const [user, dispatch] = useContext(MyUserContext);
   const navigate = useNavigate();
-  const store = useSelector((state) => state);
   const logout = () => {
     Swal.fire({
       title: "Bạn có muốn đăng xuất không?",

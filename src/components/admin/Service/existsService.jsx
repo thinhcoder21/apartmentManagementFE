@@ -1,5 +1,3 @@
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
 import Body from "./body";
 import Header from "../Header";
 import React from "react";

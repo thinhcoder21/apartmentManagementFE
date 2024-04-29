@@ -34,7 +34,7 @@ const Sidebar = () => {
         </div>
         <div className="mt-0" style={{ marginTop: 0 }}>
           <NavLink
-            to="/admin/adduser"
+            to="/admin/alluser"
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
             }
@@ -43,7 +43,7 @@ const Sidebar = () => {
             <h1 className="font-normal">Thành Viên</h1>
           </NavLink>
           <NavLink
-            to="/admin/addemployee"
+            to="/admin/allemployee"
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
             }
@@ -52,7 +52,7 @@ const Sidebar = () => {
             <h1 className="font-normal">Nhân Viên</h1>
           </NavLink>
           <NavLink
-            to="/admin/addsurvey "
+            to="/admin/allsurvey "
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
             }
@@ -61,7 +61,7 @@ const Sidebar = () => {
             <h1 className="font-normal">Khảo sát</h1>
           </NavLink>
           <NavLink
-            to="/admin/addservice"
+            to="/admin/allservice"
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
             }

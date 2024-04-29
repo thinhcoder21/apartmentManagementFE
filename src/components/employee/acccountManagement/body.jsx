@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from "react";
+import Apis, { endpoints } from "../../../configs/Apis";
+import { Button, Form, Table } from "react-bootstrap";
+import moment from "moment";
 
 function CurrentUserPage() {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [userList, setUserList] = useState([]);
+
+  const loadCurrentUser = async () => {
+    try {
+      setLoading(true);
+      let res = await Apis.get(endpoints["current-user"]);
+      setUserList([res.data]); // Chỉ set thông tin của người dùng hiện tại
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    fetchCurrentUser()
-      .then((data) => {
-        setCurrentUser(data);
-        setLoading(false);
-      })
-      .catch((error) => console.error("Error fetching current user:", error));
+    loadCurrentUser();
   }, []);
-
-  const fetchCurrentUser = async () => {
-    const response = await fetch("https://example.com/api/currentUser");
-    const data = await response.json();
-    return data;
-  };
 
   return (
     <div className="container mx-auto p-6">
@@ -25,33 +29,61 @@ function CurrentUserPage() {
       {loading ? (
         <p>Đang tải...</p>
       ) : (
-        <div className="bg-white overflow-hidden shadow rounded-lg">
-          <div className="px-4 py-5 sm:p-6">
-            <dl>
-              <div className="sm:grid sm:grid-cols-3 sm:gap-4">
-                <dt className="text-sm font-medium text-gray-500">Họ và tên</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
-                  {currentUser.name}
-                </dd>
-              </div>
-              <div className="sm:grid sm:grid-cols-3 sm:gap-4">
-                <dt className="text-sm font-medium text-gray-500">Email</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
-                  {currentUser.email}
-                </dd>
-              </div>
-              <div className="sm:grid sm:grid-cols-3 sm:gap-4">
-                <dt className="text-sm font-medium text-gray-500">
-                  Số điện thoại
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
-                  {currentUser.phone}
-                </dd>
-              </div>
-              {/* Thêm các trường thông tin khác cần hiển thị */}
-            </dl>
-          </div>
-        </div>
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              {/* <th>#</th> */}
+              <th>Ảnh đại diện</th>
+              <th>Họ và tên đệm</th>
+              <th>Tên</th>
+              <th>Tài khoản/Số điện thoại</th>
+              <th>Ngày sinh</th>
+              <th>Giới tính</th>
+              <th>Email</th>
+              <th>Vai trò</th>
+              <th>Thao tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.values(userList).map((u, index) => {
+              const dateTimeString = u.birthday;
+              const formattedDate = moment(dateTimeString).format("DD-MM-YYYY");
+              return (
+                <tr key={u.userId}>
+                  {/* Các cột thông tin của người dùng hiện tại */}
+                  <td>
+                    <div
+                      style={{
+                        width: "90px",
+                        height: "90px",
+                        overflow: "hidden",
+                      }}
+                    >
+                      <img
+                        src={u.avatar}
+                        alt="avatar"
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          borderRadius: "45px",
+                        }}
+                      />
+                    </div>
+                  </td>
+                  <td>{u.lastname}</td>
+                  <td>{u.firstname}</td>
+                  <td>{u.username}</td>
+                  <td>{formattedDate}</td>
+                  <td>{u.gender === true ? "Nam" : "Nữ"}</td>
+                  <td>{u.email}</td>
+                  <td>{u.roleId.roleName}</td>
+                  <td></td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
       )}
     </div>
   );

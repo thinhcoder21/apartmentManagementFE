@@ -1,0 +1,124 @@
+/* styles.css */
+
+/* Container */
+.AllEmployee_Container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Header */
+  .AllEmployee_Header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .AllEmployee_Header h4 {
+    color: #007bff;
+    font-size: 24px;
+  }
+  
+  /* Search section */
+  .employee_Search_Group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .employee_Search_Input {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .employee_Search_Butt {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .employee_Search_Butt:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Table */
+  .Employee_Table {
+    width: 100%;
+  }
+  
+  .Employee_Table th {
+    text-align: center;
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .Employee_Table td {
+    text-align: center;
+  }
+  
+  .Employee_Table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Image */
+  .Employee_Image {
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+  
+  .Employee_Image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Buttons */
+  .Employee_Button {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .Employee_Button button {
+    padding: 8px 16px;
+    margin: 0 5px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .Employee_Button button:hover {
+    background-color: #218838;
+  }
+  
+  /* Pagination */
+  .Employee_Pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .Employee_Pagination button {
+    padding: 5px 10px;
+    margin: 0 2px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .Employee_Pagination button:hover {
+    background-color: #0056b3;
+  }
+  
+  .Employee_Pagination button.active {
+    background-color: #0056b3;
+  }
+  
