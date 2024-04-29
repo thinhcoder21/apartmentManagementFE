@@ -1,8 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useContext, useEffect , useState} from "react";
 import SmartToyIcon from '@mui/icons-material/SmartToy';
+import cookie from "react-cookies";
+import { MyUserContext } from "../../App";
+
 
 const Body = () => {
+  const [current_user,] = useContext(MyUserContext);
+    useEffect(() => {
+        let client = cookie.load("socket")
+        console.log("Client", client?.connected);
+        if (current_user && client) {
+            cookie.remove("socket");
+        }
+    }, [])
   const [showChatBot, setShowChatBot] = useState(false);
 
   const toggleChatBot = () => {

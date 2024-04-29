@@ -1,0 +1,68 @@
+/* styles.css */
+
+/* Container */
+.Add_Survey_Container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Header */
+  .Add_Survey_Header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .Add_Survey_Header h4 {
+    color: #007bff;
+    font-size: 24px;
+  }
+  
+  /* Form */
+  .Add_Survey_Form {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  /* Form fields */
+  .Add_Survey_Form .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .Add_Survey_Form label {
+    font-weight: bold;
+  }
+  
+  .Add_Survey_Form input[type="text"],
+  .Add_Survey_Form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+  }
+  
+  .Add_Survey_Form textarea {
+    resize: none;
+  }
+  
+  /* Buttons */
+  .Add_Survey_Form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .Add_Survey_Form button:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .Add_Survey_Form button[disabled] {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+  }
+  

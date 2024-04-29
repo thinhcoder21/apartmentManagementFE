@@ -1,13 +1,8 @@
 import { NavLink } from "react-router-dom";
-import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import FormatAlignJustifyIcon from "@mui/icons-material/FormatAlignJustify";
-import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import HomeIcon from "@mui/icons-material/Home";
 import logo from "./logo2.png";
 import React from "react";
-import SchoolIcon from "@mui/icons-material/School";
 import KitchenIcon from '@mui/icons-material/Kitchen';
 import SearchIcon from '@mui/icons-material/Search';
 import CreateIcon from '@mui/icons-material/Create';
