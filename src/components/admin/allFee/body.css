@@ -1,0 +1,107 @@
+/* allFee.css */
+
+/* Phần tiêu đề */
+.Add_Fee {
+    margin-bottom: 20px;
+  }
+  
+  .Add_Fee button {
+    background-color: #137c09;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .Add_Fee button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Phần tìm kiếm */
+  .Fee_Search_Group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .Fee_Search_Input input[type="text"] {
+    width: 300px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.3s ease;
+  }
+  
+  .Fee_Search_Input input[type="text"]:focus {
+    border-color: #007bff;
+  }
+  
+  .Fee_Search_Butt {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .Fee_Search_Butt:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Phần bảng */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .data-table th,
+  .data-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+  }
+  
+  .data-table th {
+    background-color: #7a7d80;
+    color: white;
+  }
+  
+  .data-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .data-table tbody tr:hover {
+    background-color: #f2f2f2;
+  }
+  
+  /* Phân trang */
+  .Page_Nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .Page_Nav button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .Page_Nav button.active {
+    background-color: #0056b3;
+  }
+  
+  .Page_Nav button:hover {
+    background-color: #0056b3;
+  }
+  

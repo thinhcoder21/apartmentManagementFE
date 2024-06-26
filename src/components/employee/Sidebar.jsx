@@ -22,7 +22,7 @@ const Sidebar = () => {
         </div>
         <div className="" style={{ marginTop: 0 }}>
           <NavLink
-            to="/admin/employeeHome"
+            to="/employee/home"
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
             }
@@ -33,7 +33,7 @@ const Sidebar = () => {
         </div>
         <div className="mt-0" style={{ marginTop: 0 }}>
           <NavLink
-            to="/employee/eleccabinetmanagement"
+            to="/eleccabinetmanagement"
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
             }
@@ -42,7 +42,7 @@ const Sidebar = () => {
             <h1 className="font-normal">Quản lí tủ đồ điện tử</h1>
           </NavLink>
           <NavLink
-            to="/employee/invoicemanagement "
+            to="/invoicemanagement "
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
             }
@@ -51,7 +51,7 @@ const Sidebar = () => {
             <h1 className="font-normal">Quản lí hóa đơn</h1>
           </NavLink>
           <NavLink
-            to="/employee/servicemanagement "
+            to="/servicemanagement "
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
             }
@@ -60,7 +60,7 @@ const Sidebar = () => {
             <h1 className="font-normal">Quản lí dịch vụ</h1>
           </NavLink>
           <NavLink
-            to="/employee/reflectmanagement"
+            to="/reflectmanagement"
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
             }
@@ -69,7 +69,7 @@ const Sidebar = () => {
             <h1 className="font-normal">Quản lí Phản ánh</h1>
           </NavLink>
           <NavLink
-            to="/employee/eaccountmanagement "
+            to="/eaccountmanagement "
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
             }

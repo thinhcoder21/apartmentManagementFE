@@ -1,0 +1,79 @@
+/* body.css */
+
+/* Phần thêm người dùng mới */
+.add-user {
+    margin-bottom: 20px;
+  }
+  
+  .add-user button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .add-user button:hover {
+    background-color: #218838;
+  }
+  
+  /* Phần tìm kiếm người dùng */
+  .user-search-group {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .user-search-input {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-search-input input,
+  .user-search-input select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+  }
+  
+  .user-search-input select {
+    margin-left: 10px;
+  }
+  
+  .user-search-button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .user-search-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Phần bảng dữ liệu */
+  .data-table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .data-table th,
+  .data-table td {
+    border: 1px solid #dee2e6;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .data-table th {
+    background-color: #f8f9fa;
+    color: #495057;
+  }
+  
+  .data-table tr:hover {
+    background-color: #f2f2f2;
+  }
+  

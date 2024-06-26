@@ -8,12 +8,16 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import PersonIcon from "@mui/icons-material/Person";
 import { toast } from "react-toastify";
-import logo from './assets/images/avatar-user.png'
+import logo from "./assets/images/avatar-user.png";
+import ReCAPTCHA from "react-google-recaptcha";
+
 const Login = () => {
   const [user, dispatch] = useContext(MyUserContext);
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [showPassword, setShowPassword] = useState(false);
+
+  const onChange = () => {};
 
   const login = (evt) => {
     evt.preventDefault();
@@ -37,8 +41,7 @@ const Login = () => {
           type: "login",
           payload: data,
         });
-        if (res.status === 200)
-                    toast.success("Đăng nhập thành công!");
+        if (res.status === 200) toast.success("Đăng nhập thành công!");
       } catch (err) {
         toast.error("Sai tài khoản hoặc mật khẩu!");
       }
@@ -51,7 +54,6 @@ const Login = () => {
     return <Navigate to="/" />;
     // return <Navigate to={next} />
   }
-
   return (
     <>
       <div className="relative w-full h-screen p-10 bg-lite isolate">
@@ -120,7 +122,12 @@ const Login = () => {
                   </div>
                 </div>
               </div>
-              <div>Captcha</div>
+              <div>
+                <ReCAPTCHA
+                  sitekey="6Lc0ce0pAAAAAJR-NzFg8UngOMkTP5AC2KWT8tDH"
+                  onChange={onChange}
+                />
+              </div>
               <button
                 type="submit"
                 className="flex items-center justify-center w-32 py-1 mb-2 text-base text-white duration-150 rounded-lg hover:scale-105 bg-primary "

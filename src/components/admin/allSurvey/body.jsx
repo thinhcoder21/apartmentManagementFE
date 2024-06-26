@@ -5,6 +5,7 @@ import { HiPlus } from "react-icons/hi";
 import moment from 'moment';
 import Apis, { endpoints } from "../../../configs/Apis";
 import Pagination from "../../util/Pagination";
+import './body.css'
 
 const AllSurvey = () => {
     const [selectedPage, setSelectedPage] = useState('1');
@@ -39,7 +40,7 @@ const AllSurvey = () => {
     };
 
     const handleOptionClick = () => {
-        nav('/admin/addsurvey');
+        nav('/addsurvey');
     };
 
     return (
@@ -61,7 +62,7 @@ const AllSurvey = () => {
                         </div>
                         <button className="Survey_Search_Butt" onClick={loadSurvey}>Tìm kiếm</button>
                     </div>
-                    <Table striped bordered hover>
+                    <Table striped bordered hover className="data-table">
                         <thead>
                             <tr>
                                 <th>Tiêu đề</th>

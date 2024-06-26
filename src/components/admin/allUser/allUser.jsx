@@ -2,6 +2,7 @@ import Body from "./body";
 import Header from "../Header";
 import React from "react";
 import Sidebar from "../SideBar";
+import './body.css'
 
 const AllUser = () => {
   return (

@@ -3,7 +3,7 @@ import Header from "../Header";
 import Sidebar from "../SideBar";
 import Body from './body'
 
-function AddServiceForm({ onAddService }) {
+function AddEmployee() {
   return (
     <div className="bg-[#d6d9e0] h-screen flex items-center ">
       <div className="flex bg-[#f4f6fa] w-full h-full overflow-y-hidden">
@@ -17,4 +17,4 @@ function AddServiceForm({ onAddService }) {
   );
 }
 
-export default AddServiceForm;
+export default AddEmployee;

@@ -1,17 +1,13 @@
 import { NavLink } from "react-router-dom";
-import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
-import DesignServicesIcon from '@mui/icons-material/DesignServices';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import HomeIcon from "@mui/icons-material/Home";
 import logo from "./logo2.png";
 import React from "react";
-import SchoolIcon from "@mui/icons-material/School";
 import KitchenIcon from '@mui/icons-material/Kitchen';
 import SearchIcon from '@mui/icons-material/Search';
 import CreateIcon from '@mui/icons-material/Create';
 import NotesIcon from '@mui/icons-material/Notes';
+import PollIcon from '@mui/icons-material/Poll';
 
 const isNotActiveStyle =
   "flex items-center px-5 gap-3 text-white hover:text-black transition-all duration-200 ease-in-out capitalize hover:bg-gray-200 py-2 my-1";
@@ -27,7 +23,7 @@ const Sidebar = () => {
         </div>
         <div className="" style={{ marginTop: 0 }}>
           <NavLink
-            to="/admin/residentHome"
+            to="/resident/home"
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
             }
@@ -38,7 +34,7 @@ const Sidebar = () => {
         </div>
         <div className="mt-0" style={{ marginTop: 0 }}>
           <NavLink
-            to="/resident/electronicCabinet"
+            to="/electronicCabinet"
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
             }
@@ -47,7 +43,7 @@ const Sidebar = () => {
             <h1 className="font-normal"> Tủ đồ điện tử </h1>
           </NavLink>
           <NavLink
-            to="/resident/invoice "
+            to="/invoice "
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
             }
@@ -56,16 +52,7 @@ const Sidebar = () => {
             <h1 className="font-normal">Tra cứu hóa đơn</h1>
           </NavLink>
           <NavLink
-            to="/resident/registerservice "
-            className={({ isActive }) =>
-              isActive ? isActiveStyle : isNotActiveStyle
-            }
-          >
-            <CreateIcon className="" />
-            <h1 className="font-normal">Đăng kí dịch vụ</h1>
-          </NavLink>
-          <NavLink
-            to="/resident/reflect"
+            to="/reflect"
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
             }
@@ -74,7 +61,16 @@ const Sidebar = () => {
             <h1 className="font-normal">Viết phản ánh</h1>
           </NavLink>
           <NavLink
-            to="/resident/residentaccmanagement "
+            to="/response"
+            className={({ isActive }) =>
+              isActive ? isActiveStyle : isNotActiveStyle
+            }
+          >
+            <PollIcon className="" />
+            <h1 className="font-normal">Điền Khảo Sát</h1>
+          </NavLink>
+          <NavLink
+            to="/residentaccmanagement "
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
             }
@@ -83,7 +79,7 @@ const Sidebar = () => {
             <h1 className="font-normal">Quản lý tài khoản</h1>
           </NavLink>
           <NavLink
-            to="/resident/updatepassword"
+            to="/residentupdatepassword"
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
             }

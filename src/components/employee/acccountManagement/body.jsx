@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Apis, { endpoints } from "../../../configs/Apis";
 import { Button, Form, Table } from "react-bootstrap";
 import moment from "moment";
+import { MyUserContext } from "../../../App";
 
 function CurrentUserPage() {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useContext(MyUserContext);
   const [loading, setLoading] = useState(true);
   const [userList, setUserList] = useState([]);
 
   const loadCurrentUser = async () => {
     try {
       setLoading(true);
-      let res = await Apis.get(endpoints["current-user"]);
-      setUserList([res.data]); // Chỉ set thông tin của người dùng hiện tại
+      // Tạo một mảng chứa thông tin người dùng hiện tại
+      setUserList([currentUser]);
       setLoading(false);
     } catch (error) {
       console.log(error);
