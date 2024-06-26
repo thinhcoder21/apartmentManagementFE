@@ -6,14 +6,14 @@ import { toast } from "react-toastify";
 import cookie from "react-cookies";
 import { useNavigate } from "react-router-dom";
 import { Key, Lock, Visibility, VisibilityOff } from "@mui/icons-material";
-
+import './body.css'
 
 function ChangePasswordPage() {
   const [current_user] = useContext(MyUserContext);
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
+  
   const nav = useNavigate();
 
   const passwordChange = (evt) => {

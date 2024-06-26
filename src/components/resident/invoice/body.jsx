@@ -1,74 +1,78 @@
-import React, { useState, useEffect } from 'react';
-import SearchIcon from '@mui/icons-material/Search';
+import { useContext, useEffect, useState } from "react";
+import { MyUserContext } from "../../../App";
+import { Link, useNavigate } from "react-router-dom";
+import Apis, { endpoints } from "../../../configs/Apis";
+import "./body.css";
 
-function InvoiceLookupPage() {
+const PaidInvoices = () => {
+  const [current_user] = useContext(MyUserContext);
   const [invoices, setInvoices] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Gửi yêu cầu lấy các hóa đơn đã thanh toán từ máy chủ khi component được tải
-    fetchInvoices()
-      .then((data) => {
-        setInvoices(data);
-        setLoading(false);
-      })
-      .catch(error => console.error('Error fetching invoices:', error));
-  }, []);
+    const loadInvoices = async () => {
+      try {
+        const response = await Apis.get(
+          endpoints["load-paid-invoices"](current_user.id)
+        );
+        setInvoices(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  const fetchInvoices = async () => {
-    // Giả sử lấy danh sách các hóa đơn đã thanh toán từ máy chủ
-    const response = await fetch('https://example.com/api/invoices');
-    const data = await response.json();
-    return data;
-  };
+    loadInvoices();
+  }, [current_user.id]);
 
-  const handleSearch = () => {
-    // Xử lý tìm kiếm hóa đơn
-    // Nếu searchTerm không rỗng, có thể gửi yêu cầu tìm kiếm đến máy chủ
-    // Ví dụ: fetchInvoicesWithSearch(searchTerm)
+  const nav = useNavigate();
+
+  const handlePayment = async (invoiceId) => {
+    try {
+      const response = await Apis.post(endpoints["payment-invoice"](invoiceId));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Tra cứu hóa đơn đã thanh toán</h1>
-      <div className="flex mb-4">
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Nhập mã hóa đơn hoặc thông tin khách hàng"
-          className="w-full p-2 border rounded"
-        />
-        <button onClick={handleSearch} className="ml-4 bg-blue-500 hover:bg-blue-700 
-        text-white font-bold py-2 px-4 rounded"><SearchIcon></SearchIcon>Tìm kiếm</button>
+    <div className="Invoices_Wrapper">
+      <div className="Invoices_Content">
+        <div className="Invoices_Content_2">
+          <div className="Invoices_Content_2_Header">
+            <h3>Danh sách các hóa đơn của bạn</h3>
+          </div>
+          <div className="Invoices_Content_2_Content">
+            <div className="Invoices_List">
+              <ul>
+                {invoices.map((invoice) => (
+                  <li key={invoice.id}>
+                    <h3>{invoice.fee_id}</h3>
+                    <p>
+                      Trạng thái:{" "}
+                      {invoice.status === 0
+                        ? "Chưa thanh toán"
+                        : "Đã thanh toán"}
+                    </p>
+                    <p>Mô tả: {invoice.description}</p>
+                    <p>
+                      Ngày thanh toán:{" "}
+                      {invoice.status === 0
+                        ? "Chưa thanh toán"
+                        : invoice.date_of_payment}
+                    </p>
+                    {invoice.status === 0 && (
+                      <button onClick={() => handlePayment(invoice.id)}>
+                        Thanh toán
+                      </button>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
-      {loading ? (
-        <p>Đang tải...</p>
-      ) : (
-        <table className="w-full border-collapse border border-gray-500">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="border border-gray-500 px-4 py-2">Mã hóa đơn</th>
-              <th className="border border-gray-500 px-4 py-2">Tên khách hàng</th>
-              <th className="border border-gray-500 px-4 py-2">Ngày thanh toán</th>
-              <th className="border border-gray-500 px-4 py-2">Số tiền</th>
-            </tr>
-          </thead>
-          <tbody>
-            {invoices.map((invoice) => (
-              <tr key={invoice.id}>
-                <td className="border border-gray-500 px-4 py-2">{invoice.id}</td>
-                <td className="border border-gray-500 px-4 py-2">{invoice.customerName}</td>
-                <td className="border border-gray-500 px-4 py-2">{invoice.paymentDate}</td>
-                <td className="border border-gray-500 px-4 py-2">{invoice.amount}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
     </div>
   );
-}
+};
 
-export default InvoiceLookupPage;
+export default PaidInvoices;

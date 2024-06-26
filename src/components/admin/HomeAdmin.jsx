@@ -38,14 +38,6 @@ const HomeAdmin = () => {
     checkLogin(current_user);
     adminAuth(current_user);
   }, [current_user]);
-
-  useEffect(() => {
-    let client = cookie.load("socket")
-    console.log("Client", client?.connected);
-    if (current_user && client) {
-        cookie.remove("socket");
-    }
-}, [])
 */
 
   return (

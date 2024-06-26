@@ -2,24 +2,23 @@ import React, { useState, useEffect } from "react";
 import { Form, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { HiPlus } from "react-icons/hi";
-import moment from 'moment';
 import Apis, { endpoints } from "../../../configs/Apis";
 import Pagination from "../../util/Pagination";
-
-const AllService = () => {
+import "./body.css"
+const AllFee = () => {
     const [selectedPage, setSelectedPage] = useState('1');
     const [searchTitle, setSearchTitle] = useState('');
-    const [serviceList, setServiceList] = useState([]);
+    const [feeList, setFeeList] = useState([]);
     const [totalPages, setTotalPages] = useState('1');
     const [loading, setLoading] = useState(false);
 
     const nav = useNavigate();
 
-    const loadService = async (pageNumber = 1) => {
+    const loadFee = async (pageNumber = 1) => {
         try {
             setLoading(true);
-            const res = await Apis.get(`${endpoints['search-services']}?pageNumber=${pageNumber - 1}&title=${searchTitle}`);
-            setServiceList(res.data.content);
+            const res = await Apis.get(`${endpoints['search-Fees']}?pageNumber=${pageNumber - 1}&title=${searchTitle}`);
+            setFeeList(res.data.content);
             setTotalPages(res.data.totalPages);
             setLoading(false);
         } catch (error) {
@@ -28,58 +27,60 @@ const AllService = () => {
     };
 
     useEffect(() => {
-        loadService();
+        loadFee();
     }, []);
 
     const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
 
     const handlePageChange = (pageNumber) => {
         setSelectedPage(pageNumber);
-        loadService(pageNumber);
+        loadFee(pageNumber);
     };
 
     const handleOptionClick = () => {
-        nav('/admin/addservice');
+        nav('/addFee');
     };
 
     return (
         <>
             <div>
                 <div>
-                    <div className="Add_Service">
-                        <button onClick={handleOptionClick}><HiPlus /> Tạo dịch vụ mới</button>
+                    <div className="Add_Fee">
+                        <button onClick={handleOptionClick}><HiPlus /> Tạo phí mới</button>
                     </div>
-                    <div className="Service_Search_Group">
-                        <div className="Service_Search_Input">
+                    <div className="Fee_Search_Group">
+                        <div className="Fee_Search_Input">
                             <Form.Control
                                 defaultValue={searchTitle}
                                 name="searchTitle"
                                 type="text"
                                 onChange={(e) => setSearchTitle(e.target.value)}
-                                placeholder="Nhập tiêu đề dịch vụ..."
+                                placeholder="Nhập tên phí..."
                             />
                         </div>
-                        <button className="Service_Search_Butt" onClick={loadService}>Tìm kiếm</button>
+                        <button className="Fee_Search_Butt" onClick={loadFee}>Tìm kiếm</button>
                     </div>
-                    <Table striped bordered hover>
+                    <Table striped bordered hover className="data-table">
                         <thead>
                             <tr>
-                                <th>Tiêu đề</th>
+                                <th>ID</th>
+                                <th>Tên</th>
                                 <th>Mô tả</th>
-                                <th>Ngày tạo</th>
-                                <th>Thao tác</th>
+                                <th>Gía</th>
+                                <th>Trạng thái</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {serviceList.map(service => (
-                                <tr key={service.serviceId}>
-                                    <td>{service.name}</td>
-                                    <td>{service.type}</td>
-                                    <td>{moment(service.startDate).format('DD-MM-YYYY')}</td>
+                            {feeList.map(Fee => (
+                                <tr key={Fee.FeeId}>
+                                    <td>{Fee.name}</td>
+                                    <td>{Fee.description}</td>
+                                    <td>{Fee.price}</td>
+                                    <td>{Fee.active}</td>
                                     <td>
                                         <button
                                             variant="success"
-                                            onClick={() => nav(`/admin/updateservice/${service.serviceId}`)}
+                                            onClick={() => nav(`/admin/updateFee/${Fee.FeeId}`)}
                                         >
                                             Cập nhật
                                         </button>
@@ -99,4 +100,4 @@ const AllService = () => {
     );
 };
 
-export default AllService;
+export default AllFee;

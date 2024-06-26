@@ -98,7 +98,7 @@ const AllUser = () => {
 
     const handleOptionClick = (option) => {
         if(option === "adduser"){
-            nav('/admin/adduser')
+            nav('/adduser')
         }
     };
 
@@ -106,11 +106,11 @@ const AllUser = () => {
         <>
             <div>
                 <div>
-                    <div className="Add_User">
-                        <button onClick={() => handleOptionClick("adduser")}><HiPlus /> Thêm 1 người dùng mới</button>
+                    <div className="add-user">
+                        <button onClick={() => handleOptionClick("adduser")}><HiPlus />New User</button>
                     </div>
-                    <div className="User_Search_Group">
-                        <div className="User_Search_Input">
+                    <div className="user-search-group">
+                        <div className="user-search-input">
                             <Form.Control className="User_Search_Lastname" defaultValue={searchLastname} name="searchFirstname" type="Text" onChange={(e) => setSearchLastname(e.target.value)} placeholder="Nhập họ và tên đệm..." />
                             <Form.Control className="User_Search_Firstname" defaultValue={searchFirstname} name="searchLastname" type="Text" onChange={(e) => setSearchFirstname(e.target.value)} placeholder="Nhập tên..." />
                             <Form.Select className="User_Search_Role" value={searchRole} name="searchRole" onChange={(e) => setSearchRole(e.target.value)}>
@@ -118,21 +118,18 @@ const AllUser = () => {
                                 {Object.values(roles).map(r => <option key={r.roleId} value={r.roleId}>{r.roleName}</option>)}
                             </Form.Select>
                         </div>
-                        <button className="User_Search_Butt" onClick={loadUserPage}>Tìm kiếm</button>
+                        <button className="user-search-button" onClick={loadUserPage}>Tìm kiếm</button>
                     </div>
-                    <Table striped bordered hover>
+                    <Table striped bordered hover className="data-table">
                         <thead>
                             <tr>
                                 {/* <th>#</th> */}
                                 <th>Ảnh đại diện</th>
-                                <th>Họ và tên đệm</th>
-                                <th>Tên</th>
-                                <th>Tài khoản/Số điện thoại</th>
+                                <th>Tên người dùng </th>
+                                <th>Số điện thoại</th>
                                 <th>Ngày sinh</th>
                                 <th>Giới tính</th>
-                                <th>Email</th>
-                                <th>Vai trò</th>
-                                <th>Thao tác</th>
+                                <th>Trạng thái</th>
                             </tr>
                         </thead>    
                         <tbody>
@@ -144,13 +141,11 @@ const AllUser = () => {
                                     <tr key={u.userId}>
                                         {/* <td>{index + 1}</td> */}
                                         <td><div style={{ width: "90px", height: "90px", overflow: 'hidden' }}><img src={u.avatar} alt="avatar" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "45px" }} /></div></td>
-                                        <td>{u.lastname}</td>
-                                        <td>{u.firstname}</td>
-                                        <td>{u.username}</td>
+                                        <td>{u.fullname}</td>
+                                        <td>{u.phone}</td>
                                         <td>{formattedDate}</td>
                                         <td>{u.gender === true ? 'Nam' : 'Nữ'}</td>
-                                        <td>{u.email}</td>
-                                        <td>{u.roleId.roleName}</td>
+                                        <td>{u.active}</td>
                                         <td>
                                             <Button variant="success" onClick={(e) => {
                                                 // handleOptionClickAndUpdateUser(e, u.userId)

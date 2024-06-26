@@ -2,7 +2,8 @@ import { useRef, useState } from "react";
 import { Form } from "react-bootstrap";
 import { toast } from "react-toastify";
 import Apis, { endpoints } from "../../../configs/Apis";
-import avatar_user from "../../assets/images/avatar-user.png"
+import avatar_user from "../../assets/images/avatar-user.png";
+import './body.css';
 
 const AddUser = () => {
     const [gender, setGender] = useState();
@@ -13,10 +14,11 @@ const AddUser = () => {
         "username": "",
         "password": "",
         "firstname": "",
-        "lastname": "",
+        "phone": "",
         "gender": "",
+        "active": "",
         "avatar": "",
-        "birthday": ""
+        "birthday": "",
     })
 
     const currentDate = new Date();
@@ -107,13 +109,9 @@ const AddUser = () => {
                             <Form.Control type="text" onChange={(e) => change(e, "password")} placeholder="Mật khẩu" required />
                         </div>
                         <div className="Add_User_Name">
-                            <div className="Add_Lastname">
-                                <Form.Label style={{ width: "78%" }}>Họ và tên đệm</Form.Label>
+                            <div className="Add_User_FullName">
+                                <Form.Label style={{ width: "78%" }}>Họ và tên </Form.Label>
                                 <Form.Control type="Text" onChange={(e) => change(e, "lastname")} placeholder="Họ và tên đệm" required />
-                            </div>
-                            <div className="Add_Firstname">
-                                <Form.Label style={{ width: "78%" }}>Tên</Form.Label>
-                                <Form.Control type="Text" onChange={(e) => change(e, "firstname")} placeholder="Tên" required />
                             </div>
                         </div>
                         <div className="Add_User_Gender">

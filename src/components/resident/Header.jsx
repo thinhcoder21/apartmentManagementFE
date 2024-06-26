@@ -3,12 +3,29 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { MyUserContext } from "../../App";
-import { useContext } from "react";
-
-
+import { useContext, useEffect, useState } from "react";
+import Apis, { endpoints } from "../../configs/Apis";
+import './Header.css';
 const Header = () => {
   const [user, dispatch] = useContext(MyUserContext);
   const navigate = useNavigate();
+  const [avatarURL, setAvatarURL] = useState(null);
+
+  useEffect(() => {
+    loadAvatar();
+  }, []);
+
+  const loadAvatar = async () => {
+    try {
+      const response = await Apis.get(endpoints["load-avatar"](user.id));
+      if (response.data && response.data.link_image) {
+        setAvatarURL(response.data.link_image);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const logout = () => {
     Swal.fire({
       title: "Bạn có muốn đăng xuất không?",
@@ -30,7 +47,11 @@ const Header = () => {
         <h1 className="ml-5 text-lg font-bold text-green-700"> Green House</h1>
       </div>
       <div className="flex items-center mx-5 space-x-3">
-        <Avatar />
+        {avatarURL ? (
+          <Avatar alt="Avatar" src="avatarURL" className="avatar" />
+        ) : (
+          <Avatar className="avatar" />
+        )}
         <LogoutIcon
           onClick={logout}
           className="transition-all cursor-pointer hover:scale-125 "

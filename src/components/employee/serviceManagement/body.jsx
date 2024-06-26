@@ -1,69 +1,116 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from "react";
+import { Button, Form, Table } from "react-bootstrap";
+import Apis, { endpoints } from "../../../configs/Apis";
+import { toast } from "react-toastify";
 
-function ManageServicesPage() {
-  // Dữ liệu dịch vụ
-  const [services, setServices] = useState([
-    { id: 1, name: 'Service 1', description: 'Description 1' },
-    { id: 2, name: 'Service 2', description: 'Description 2' },
-    { id: 3, name: 'Service 3', description: 'Description 3' },
-  ]);
+const ManageServicesPage = () => {
+    const [serviceName, setServiceName] = useState('');
+    const [serviceDescription, setServiceDescription] = useState('');
+    const [services, setServices] = useState([]);
+    const [editingIndex, setEditingIndex] = useState(-1);
 
-  // Trạng thái biểu mẫu thêm/sửa dịch vụ
-  const [formData, setFormData] = useState({ id: '', name: '', description: '' });
-  const [editing, setEditing] = useState(false);
+    useEffect(() => {
+        loadServices();
+    }, []);
 
-  // Hàm xử lý thêm dịch vụ
-  const addService = () => {
-    if (!formData.name || !formData.description) return;
-    setServices([...services, { ...formData, id: Date.now() }]);
-    setFormData({ id: '', name: '', description: '' });
-  };
+    const loadServices = async () => {
+        try {
+            const response = await Apis.get(endpoints['load-available-services']);
+            setServices(response.data);
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to load services");
+        }
+    };
 
-  // Hàm xử lý sửa dịch vụ
-  const editService = (id) => {
-    const serviceToEdit = services.find(service => service.id === id);
-    if (!serviceToEdit) return;
-    setFormData(serviceToEdit);
-    setEditing(true);
-  };
+    const handleAddService = async () => {
+        try {
+            await Apis.post(endpoints['add-service'], { serviceName, serviceDescription });
+            setServiceName('');
+            setServiceDescription('');
+            loadServices();
+            toast.success("Service added successfully");
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to add service");
+        }
+    };
 
-  // Hàm cập nhật dịch vụ đã sửa
-  const updateService = () => {
-    if (!formData.name || !formData.description) return;
-    setServices(services.map(service => (service.id === formData.id ? formData : service)));
-    setFormData({ id: '', name: '', description: '' });
-    setEditing(false);
-  };
+    const handleDeleteService = async (serviceId) => {
+        try {
+            await Apis.delete(`${endpoints['delete-service']}/${serviceId}`);
+            loadServices();
+            toast.success("Service deleted successfully");
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to delete service");
+        }
+    };
 
-  // Hàm xử lý xóa dịch vụ
-  const deleteService = (id) => {
-    setServices(services.filter(service => service.id !== id));
-  };
+    const handleEditService = async (serviceId, newName, newDescription) => {
+        try {
+            await Apis.put(`${endpoints['update-service']}/${serviceId}`, { serviceName: newName, serviceDescription: newDescription });
+            loadServices();
+            toast.success("Service updated successfully");
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to update service");
+        }
+    };
 
-  return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">Manage Services</h1>
-      
-      {/* Form thêm/sửa dịch vụ */}
-      <form onSubmit={editing ? updateService : addService} className="mb-4">
-        <input type="text" placeholder="Name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="block w-full border-gray-300 rounded-md shadow-sm mb-2 p-2" />
-        <input type="text" placeholder="Description" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} className="block w-full border-gray-300 rounded-md shadow-sm mb-2 p-2" />
-        <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mr-2">{editing ? 'Update' : 'Add'}</button>
-        {editing && <button onClick={() => setEditing(false)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">Cancel</button>}
-      </form>
-      
-      {/* Danh sách dịch vụ */}
-      <ul>
-        {services.map(service => (
-          <li key={service.id} className="border-b py-2">
-            <span className="text-lg font-bold">{service.name}</span> - {service.description}
-            <button onClick={() => editService(service.id)} className="ml-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded">Edit</button>
-            <button onClick={() => deleteService(service.id)} className="ml-2 bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded">Delete</button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
+    return (
+        <div>
+            <h2>Quản lí dịch vụ</h2>
+            <Form>
+                <Form.Group controlId="serviceName">
+                    <Form.Label>Tên dịch vụ</Form.Label>
+                    <Form.Control type="text" placeholder="Enter service name" value={serviceName} onChange={(e) => setServiceName(e.target.value)} />
+                </Form.Group>
+                <Form.Group controlId="serviceDescription">
+                    <Form.Label>thông tin dịch vụ</Form.Label>
+                    <Form.Control as="textarea" rows={3} placeholder="Enter service description" value={serviceDescription} onChange={(e) => setServiceDescription(e.target.value)} />
+                </Form.Group>
+                <Button variant="primary" onClick={handleAddService}>Add Service</Button>
+            </Form>
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tên</th>
+                        <th>Thông tin</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {services.map((service, index) => (
+                        <tr key={service.id}>
+                            <td>{service.id}</td>
+                            <td>
+                                {editingIndex === index ?
+                                    <input value={service.serviceName} onChange={(e) => handleEditService(service.id, e.target.value, service.serviceDescription)} />
+                                    : service.serviceName}
+                            </td>
+                            <td>
+                                {editingIndex === index ?
+                                    <input value={service.serviceDescription} onChange={(e) => handleEditService(service.id, service.serviceName, e.target.value)} />
+                                    : service.serviceDescription}
+                            </td>
+                            <td>
+                                {editingIndex === index ?
+                                    <Button variant="primary" onClick={() => setEditingIndex(-1)}>Save</Button>
+                                    :
+                                    <>
+                                        <Button variant="warning" onClick={() => setEditingIndex(index)}>Edit</Button>
+                                        <Button variant="danger" onClick={() => handleDeleteService(service.id)}>Delete</Button>
+                                    </>
+                                }
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </Table>
+        </div>
+    );
+};
 
 export default ManageServicesPage;

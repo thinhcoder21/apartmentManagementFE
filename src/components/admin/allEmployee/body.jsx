@@ -95,7 +95,7 @@ const AllEmployee = () => {
 
   const handleOptionClick = (option) => {
     if (option === "addemployee") {
-      nav("/admin/addemployee");
+      nav("/addemployee");
     }
   };
 
@@ -103,15 +103,15 @@ const AllEmployee = () => {
     <>
       <div>
         <div>
-          <div className="Add_employee">
+          <div className="add-employee">
             <button onClick={() => handleOptionClick("addemployee")}>
-              <HiPlus /> Thêm 1 nhân viên mới
+              <HiPlus /> New Employee
             </button>
           </div>
-          <div className="employee_Search_Group">
-            <div className="employee_Search_Input">
+          <div className="employee-search-Group">
+            <div className="employee-search-input">
               <Form.Control
-                className="employee_Search_Lastname"
+                className="employee-search-lastname"
                 defaultValue={searchLastname}
                 name="searchFirstname"
                 type="Text"
@@ -119,7 +119,7 @@ const AllEmployee = () => {
                 placeholder="Nhập họ và tên đệm..."
               />
               <Form.Control
-                className="employee_Search_Firstname"
+                className="employee-search-firstname"
                 defaultValue={searchFirstname}
                 name="searchLastname"
                 type="Text"
@@ -127,7 +127,7 @@ const AllEmployee = () => {
                 placeholder="Nhập tên..."
               />
               <Form.Select
-                className="employee_Search_Role"
+                className="employee-search-role"
                 value={searchRole}
                 name="searchRole"
                 onChange={(e) => setSearchRole(e.target.value)}
@@ -140,18 +140,18 @@ const AllEmployee = () => {
                 ))}
               </Form.Select>
             </div>
-            <button className="employee_Search_Butt" onClick={loadEmployeePage}>
+            <button className="employee-search-button" onClick={loadEmployeePage}>
               Tìm kiếm
             </button>
           </div>
-          <Table striped bordered hover>
+          <Table striped bordered hover className="data-table">
             <thead>
               <tr>
                 {/* <th>#</th> */}
                 <th>Ảnh đại diện</th>
                 <th>Họ và tên đệm</th>
                 <th>Tên</th>
-                <th>Tài khoản/Số điện thoại</th>
+                <th>Tài khoản/  Số điện thoại</th>
                 <th>Ngày sinh</th>
                 <th>Giới tính</th>
                 <th>Email</th>

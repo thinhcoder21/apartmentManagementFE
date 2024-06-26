@@ -34,7 +34,7 @@ const Sidebar = () => {
         </div>
         <div className="mt-0" style={{ marginTop: 0 }}>
           <NavLink
-            to="/admin/alluser"
+            to="/alluser"
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
             }
@@ -43,7 +43,7 @@ const Sidebar = () => {
             <h1 className="font-normal">Thành Viên</h1>
           </NavLink>
           <NavLink
-            to="/admin/allemployee"
+            to="/allemployee"
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
             }
@@ -52,7 +52,7 @@ const Sidebar = () => {
             <h1 className="font-normal">Nhân Viên</h1>
           </NavLink>
           <NavLink
-            to="/admin/allsurvey "
+            to="/allsurvey "
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
             }
@@ -61,16 +61,16 @@ const Sidebar = () => {
             <h1 className="font-normal">Khảo sát</h1>
           </NavLink>
           <NavLink
-            to="/admin/allservice"
+            to="/allFee"
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
             }
           >
             <DesignServicesIcon className="" />
-            <h1 className="font-normal">Dịch vụ</h1>
+            <h1 className="font-normal">Phí</h1>
           </NavLink>
           <NavLink
-            to="/admin/statistic"
+            to="/statistic"
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
             }
@@ -79,7 +79,7 @@ const Sidebar = () => {
             <h1 className="font-normal">Thống kê</h1>
           </NavLink>
           <NavLink
-            to="/admin/accmanagement "
+            to="/adminaccmanagement "
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
             }
@@ -88,7 +88,7 @@ const Sidebar = () => {
             <h1 className="font-normal">Quản lý tài khoản</h1>
           </NavLink>
           <NavLink
-            to="/admin/updatepassword"
+            to="/adminupdatepassword"
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
             }
