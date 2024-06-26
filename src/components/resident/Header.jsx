@@ -2,10 +2,11 @@ import Swal from "sweetalert2";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { MyUserContext } from "../../App";
+import { MyUserContext } from "../../configs/Context";
 import { useContext, useEffect, useState } from "react";
 import Apis, { endpoints } from "../../configs/Apis";
-import './Header.css';
+import "./Header.css";
+import { MyDispatchContext } from "../../configs/Context";
 const Header = () => {
   const [user, dispatch] = useContext(MyUserContext);
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ const Header = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         dispatch({ type: "ADMIN_LOGOUT" });
-        navigate("/");
+        navigate("/login");
       }
     });
   };

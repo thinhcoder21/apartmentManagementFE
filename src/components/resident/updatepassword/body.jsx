@@ -1,6 +1,6 @@
 import { Form, InputGroup } from "react-bootstrap";
 import { useContext, useEffect, useState } from "react";
-import { MyUserContext } from "../../../App";
+import { MyUserContext } from "../../../configs/Context";
 import { authApi, endpoints } from "../../../configs/Apis";
 import { toast } from "react-toastify";
 import cookie from "react-cookies";

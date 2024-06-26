@@ -1,59 +1,57 @@
 import { useContext, useState } from "react";
 import cookie from "react-cookies";
 import Apis, { authApi, endpoints } from "../configs/Apis";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { MyUserContext } from "../App";
+import { MyDispatchContext } from "../configs/Context";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import PersonIcon from "@mui/icons-material/Person";
 import { toast } from "react-toastify";
 import logo from "./assets/images/avatar-user.png";
-import ReCAPTCHA from "react-google-recaptcha";
 
 const Login = () => {
-  const [user, dispatch] = useContext(MyUserContext);
+  const [user, setUser] = useState({});
+  const dispatch = useContext(MyDispatchContext);
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [showPassword, setShowPassword] = useState(false);
+  const nav = useNavigate();
 
-  const onChange = () => {};
+  const change = (e, field) => {
+    setUser((current) => {
+      return { ...current, [field]: e.target.value };
+    });
+  };
 
-  const login = (evt) => {
+  const login = async (evt) => {
     evt.preventDefault();
+    try {
+      let res = await Apis.post(endpoints["login"], {
+        username: username,
+        password: password,
+      });
+      console.info(res.data);
+      cookie.save("token", res.data);
 
-    const process = async () => {
-      try {
-        let res = await Apis.post(endpoints["login"], {
-          username: username,
-          password: password,
-        });
-        console.info(res.data);
-
-        //tiến hành lưu token mà server gửi về khi đăng nhập thành công trên cookie
-        cookie.save("token", res.data);
-
-        let { data } = await authApi().get(endpoints["current-user"]);
-        cookie.save("user", data);
-
-        //phát tín hiệu cho reducer
+      let u = await authApi().get(endpoints["current-user"]);
+      console.info("info", u.data);
+      if (u.data.active === 0) {
+        alert("Tài khoản của bạn đã bị khóa");
+        nav("/login");
+      } else {
         dispatch({
           type: "login",
-          payload: data,
+          payload: u.data,
         });
-        if (res.status === 200) toast.success("Đăng nhập thành công!");
-      } catch (err) {
-        toast.error("Sai tài khoản hoặc mật khẩu!");
       }
-    };
-    //gọi hàm
-    process();
+      cookie.save("user", u.data);
+      if (res.status === 200) toast.success("Đăng nhập thành công!");
+    } catch (err) {
+      toast.error("Sai tài khoản hoặc mật khẩu!");
+    }
   };
-  if (user !== null) {
-    // let next = q.get("next") || "/";
-    return <Navigate to="/" />;
-    // return <Navigate to={next} />
-  }
   return (
     <>
       <div className="relative w-full h-screen p-10 bg-lite isolate">
@@ -121,12 +119,6 @@ const Login = () => {
                     )}
                   </div>
                 </div>
-              </div>
-              <div>
-                <ReCAPTCHA
-                  sitekey="6Lc0ce0pAAAAAJR-NzFg8UngOMkTP5AC2KWT8tDH"
-                  onChange={onChange}
-                />
               </div>
               <button
                 type="submit"

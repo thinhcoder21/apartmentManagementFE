@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "testuser",
+      "password": "testpassword",
+      "fullname": "Test User",
+      "phone": "123456789",
+      "gender": 1,
+      "active": 1,
+      "link_image": "http://example.com/image.jpg",
+      "id_role": 1,
+      "id_locker": 1,
+      "status": 1
+    }
+  ],
+  "current-user": {
+    "id": 1,
+    "username": "testuser",
+    "role": "resident"
+  }
+}

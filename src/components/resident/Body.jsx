@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import cookie from "react-cookies";
-import { MyUserContext } from "../../App";
+import { MyUserContext } from "../../configs/Context";
 import Apis, { endpoints } from "../../configs/Apis";
 import Modal from "react-modal";
+import { Navigate ,useNavigate } from "react-router-dom";
 
 Modal.setAppElement("#root");
 
@@ -11,10 +12,17 @@ const Body = () => {
   const [current_user] = useContext(MyUserContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [avatar, setAvatar] = useState(null);
+  const nav = useNavigate();
 
+  
   useEffect(() => {
     checkUserStatus();
   }, []);
+  
+ 
+  if(current_user === null){
+    return nav('/login')
+  }
 
   const checkUserStatus = async () => {
     try {

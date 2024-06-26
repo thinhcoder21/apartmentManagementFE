@@ -1,5 +1,5 @@
 import Apis, { endpoints } from "../../../configs/Apis";
-import { MyUserContext } from "../../../App";
+import { MyUserContext } from "../../../configs/Context";
 import cookie from "react-cookies";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";

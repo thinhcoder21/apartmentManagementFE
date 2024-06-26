@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import Apis, { endpoints } from "../../../configs/Apis";
-import { Button, Form, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import moment from "moment";
-import { MyUserContext } from "../../../App";
+import { MyUserContext } from "../../../configs/Context";
 
 function CurrentUserPage() {
-  const [currentUser, setCurrentUser] = useContext(MyUserContext);
+  const [currentUser, ] = useContext(MyUserContext);
   const [loading, setLoading] = useState(true);
   const [userList, setUserList] = useState([]);
 
@@ -41,8 +40,6 @@ function CurrentUserPage() {
               <th>Ngày sinh</th>
               <th>Giới tính</th>
               <th>Email</th>
-              <th>Vai trò</th>
-              <th>Thao tác</th>
             </tr>
           </thead>
           <tbody>
@@ -51,7 +48,6 @@ function CurrentUserPage() {
               const formattedDate = moment(dateTimeString).format("DD-MM-YYYY");
               return (
                 <tr key={u.userId}>
-                  {/* Các cột thông tin của người dùng hiện tại */}
                   <td>
                     <div
                       style={{
@@ -78,7 +74,6 @@ function CurrentUserPage() {
                   <td>{formattedDate}</td>
                   <td>{u.gender === true ? "Nam" : "Nữ"}</td>
                   <td>{u.email}</td>
-                  <td>{u.roleId.roleName}</td>
                   <td></td>
                 </tr>
               );
