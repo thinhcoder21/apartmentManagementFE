@@ -13,6 +13,7 @@ import ReUpdatePassword from "./components/resident/updatepassword/updatepasswor
 import MyUserReducer from "./reducers/MyUserReducer";
 import Response from "./components/resident/reponse/SurveyList";
 import { MyDispatchContext, MyUserContext } from "./configs/Context";
+import Header from "./components/resident/Header";
 
 const App = () => {
   const [user, dispatch] = useReducer(

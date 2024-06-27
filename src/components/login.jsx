@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import cookie from "react-cookies";
+import axios from "axios";
 import Apis, { authApi, endpoints } from "../configs/Apis";
 import { Navigate, useNavigate } from "react-router-dom";
 import { MyUserContext } from "../App";
@@ -14,8 +15,8 @@ import logo from "./assets/images/avatar-user.png";
 const Login = () => {
   const [user, setUser] = useState({});
   const dispatch = useContext(MyDispatchContext);
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const nav = useNavigate();
 
@@ -25,30 +26,69 @@ const Login = () => {
     });
   };
 
+  // const login = async (evt) => {
+  //   evt.preventDefault();
+  //   try {
+  //     let res = await Apis.post(endpoints["login"], {
+  //       username: username,
+  //       password: password,
+  //     });
+  //     console.info(res.data);
+  //     cookie.save("token", res.data);
+
+  //     let u = await authApi().get(endpoints["current-user"]);
+  //     console.info("info", u.data);
+  //     if (u.data.active === 0) {
+  //       alert("Tài khoản của bạn đã bị khóa");
+  //       nav("/login");
+  //     } else {
+  //       dispatch({
+  //         type: "login",
+  //         payload: u.data,
+  //       });
+  //     }
+  //     cookie.save("user", u.data);
+  //     if (res.status === 200) toast.success("Đăng nhập thành công!");
+  //   } catch (err) {
+  //     toast.error("Sai tài khoản hoặc mật khẩu!");
+  //   }
+  // };
+
   const login = async (evt) => {
     evt.preventDefault();
     try {
-      let res = await Apis.post(endpoints["login"], {
-        username: username,
-        password: password,
-      });
+      // Gọi API đăng nhập
+      let res = await Apis.post(endpoints["login"], { ...user });
       console.info(res.data);
+
+      // Lưu token vào cookie
       cookie.save("token", res.data);
 
-      let u = await authApi().get(endpoints["current-user"]);
-      console.info("info", u.data);
-      if (u.data.active === 0) {
+      // Gọi API lấy thông tin người dùng hiện tại
+      let { data } = await authApi().get(endpoints["current-user"]);
+      cookie.save("user", data);
+      console.info("info", data);
+
+      // Kiểm tra trạng thái tài khoản
+      if (data.active === 0) {
         alert("Tài khoản của bạn đã bị khóa");
         nav("/login");
       } else {
+        // Dispatch action login
         dispatch({
           type: "login",
-          payload: u.data,
+          payload: data,
         });
       }
-      cookie.save("user", u.data);
-      if (res.status === 200) toast.success("Đăng nhập thành công!");
+
+      // Thông báo đăng nhập thành công
+      if (res.status === 200 || res.status === 201) {
+        toast.success("Đăng nhập thành công!");
+        console.log("thanh cong");
+        nav("/resident/home");
+      }
     } catch (err) {
+      // Xử lý lỗi đăng nhập
       toast.error("Sai tài khoản hoặc mật khẩu!");
     }
   };
@@ -74,7 +114,7 @@ const Login = () => {
                 <div className="bg-white rounded-lg w-[16rem] flex  items-center">
                   <input
                     onChange={(e) => setUsername(e.target.value)}
-                    value={username}
+                    value={username || ""}
                     name="username"
                     type="text"
                     required
@@ -98,7 +138,7 @@ const Login = () => {
                 <div className="bg-white rounded-lg w-[16rem] flex  items-center">
                   <input
                     onChange={(e) => setPassword(e.target.value)}
-                    value={password}
+                    value={password || ""}
                     required
                     name="password"
                     type={showPassword ? "text" : "password"}

@@ -1,11 +1,11 @@
 import Apis, { endpoints } from "../../../configs/Apis";
 import { MyUserContext } from "../../../configs/Context";
-import cookie from "react-cookies";
+  import cookie from "react-cookies";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 
 const Locker = () => {
-  const [current_user] = useContext(MyUserContext);
+  const current_user = useContext(MyUserContext);
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const Locker = () => {
     };
 
     loadItems();
-  }, [current_user.id]);
+  }, [current_user]);
 
   const nav = useNavigate();
 

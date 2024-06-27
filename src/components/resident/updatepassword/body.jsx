@@ -1,12 +1,11 @@
+import React, { useContext, useState } from "react";
 import { Form, InputGroup } from "react-bootstrap";
-import { useContext, useEffect, useState } from "react";
 import { MyUserContext } from "../../../configs/Context";
 import { authApi, endpoints } from "../../../configs/Apis";
 import { toast } from "react-toastify";
-import cookie from "react-cookies";
 import { useNavigate } from "react-router-dom";
 import { Key, Lock } from "@mui/icons-material";
-
+import "./body.css"; // Import CSS file for styling
 
 function ChangePasswordPage() {
   const [current_user] = useContext(MyUserContext);
@@ -16,98 +15,81 @@ function ChangePasswordPage() {
 
   const nav = useNavigate();
 
-  const passwordChange = (evt) => {
-    const process = async () => {
-      try {
-        console.log(currentPassword, newPassword);
-        let res = await authApi().post(endpoints["change-password"], {
-          username: current_user?.username,
-          currentPassword: currentPassword,
-          newPassword: newPassword,
-        });
-
-        if (res.data === "Đổi mật khẩu thành công!") {
-          toast.success("Đổi mật khẩu thành công!");
-          nav("/");
-          console.log(res.data);
-        }
-      } catch (error) {
-        if (error.request.responseText === "Người dùng không tồn tại!") {
-          toast.error(error.request.responseText);
-          console.log(error.request.responseText);
-        } else if (
-          error.request.responseText ===
-          "Mật khẩu hiện tại và mật khẩu cũ không khớp!"
-        ) {
-          toast.error(error.request.responseText);
-          console.log(error.request.responseText);
-        } else {
-          toast.error(error.request.responseText);
-          console.log(error.request.responseText);
-        }
+  const passwordChange = async (e) => {
+    e.preventDefault();
+    try {
+      if (newPassword !== confirmPassword) {
+        toast.error("Mật khẩu KHÔNG khớp!");
+        return;
       }
-    };
-    if (newPassword === confirmPassword) process();
-    else {
-      toast.error("Mật khẩu KHÔNG khớp!");
+
+      const res = await authApi().post(endpoints["change-password"], {
+        username: current_user?.username,
+        currentPassword: currentPassword,
+        newPassword: newPassword,
+      });
+
+      if (res.data === "Đổi mật khẩu thành công!") {
+        toast.success("Đổi mật khẩu thành công!");
+        nav("/");
+      }
+    } catch (error) {
+      if (error.request.responseText === "Người dùng không tồn tại!") {
+        toast.error(error.request.responseText);
+      } else if (
+        error.request.responseText ===
+        "Mật khẩu hiện tại và mật khẩu cũ không khớp!"
+      ) {
+        toast.error(error.request.responseText);
+      } else {
+        toast.error("Đã xảy ra lỗi khi đổi mật khẩu!");
+      }
     }
   };
-  useEffect(() => {
-    let client = cookie.load("socket");
-    console.log("Client", client?.connected);
-    if (current_user && client) {
-      cookie.remove("socket");
-    }
-  }, []);
 
   return (
     <div className="container mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6">Đổi mật khẩu</h1>
-      <Form onSubmit={(e) => passwordChange(e)}>
+      <Form onSubmit={passwordChange}>
         <InputGroup className="mb-3">
           <InputGroup.Text>
             <Lock />
           </InputGroup.Text>
           <Form.Control
-            placeholder="Password"
-            aria-label="Password"
-            aria-describedby="basic-addon1"
+            type="password"
+            placeholder="Mật khẩu hiện tại"
             required
             value={currentPassword}
             onChange={(e) => setCurrentPassword(e.target.value)}
           />
         </InputGroup>
-        <div className="Separate"></div>
         <InputGroup className="mb-3">
           <InputGroup.Text>
             <Key />
           </InputGroup.Text>
           <Form.Control
-            placeholder="New Password"
-            aria-label="New Password"
-            aria-describedby="basic-addon1"
+            type="password"
+            placeholder="Mật khẩu mới"
             required
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
         </InputGroup>
-        <div className="Separate"></div>
         <InputGroup className="mb-3">
           <InputGroup.Text>
             <Key />
           </InputGroup.Text>
           <Form.Control
-            placeholder="Confirm Password"
-            aria-label="Confirm Password"
-            aria-describedby="basic-addon1"
+            type="password"
+            placeholder="Xác nhận mật khẩu mới"
             required
-            value={setConfirmPassword}
+            value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </InputGroup>
-          <button type="submit" className="ChangePassword_Butt">
-            Lưu thay đổi
-          </button>
+        <button type="submit" className="change-password-btn">
+          Lưu thay đổi
+        </button>
       </Form>
     </div>
   );

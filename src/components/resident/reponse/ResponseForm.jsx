@@ -12,7 +12,6 @@ const SurveyResponseForm = () => {
 
   useEffect(() => {
     const handleResponse = async (evt) => {
-      evt.preventDefault();
 
       try {
         let res = await Apis.get(endpoints["load-question-survey"]);

@@ -9,7 +9,7 @@ import { Navigate ,useNavigate } from "react-router-dom";
 Modal.setAppElement("#root");
 
 const Body = () => {
-  const [current_user] = useContext(MyUserContext);
+  const current_user = useContext(MyUserContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [avatar, setAvatar] = useState(null);
   const nav = useNavigate();
@@ -20,18 +20,11 @@ const Body = () => {
   }, []);
   
  
-  if(current_user === null){
-    return nav('/login')
-  }
-
   const checkUserStatus = async () => {
     try {
-      const response = await Apis.get(
-        endpoints["user-status"](current_user.id)
-      );
-      const userStatus = response.data.status;
+      const userStatus = current_user.status;
       if (userStatus === 0) {
-        setIsModalOpen(true);
+        setIsModalOpen(true); 
       }
     } catch (error) {
       console.log(error);

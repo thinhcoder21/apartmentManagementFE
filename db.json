@@ -2,21 +2,302 @@
   "users": [
     {
       "id": 1,
-      "username": "testuser",
-      "password": "testpassword",
-      "fullname": "Test User",
-      "phone": "123456789",
+      "username": "admin",
+      "password": "123456",
+      "fullname": "Administrator",
+      "phone": "0917558807",
       "gender": 1,
       "active": 1,
-      "link_image": "http://example.com/image.jpg",
+      "link_image": "https://via.placeholder.com/150",
       "id_role": 1,
       "id_locker": 1,
       "status": 1
     }
   ],
-  "current-user": {
-    "id": 1,
-    "username": "testuser",
-    "role": "resident"
-  }
+  "login": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "123456",
+      "fullname": "Administrator",
+      "phone": "0917558807",
+      "gender": 1,
+      "active": 1,
+      "link_image": "https://via.placeholder.com/150",
+      "id_role": 1,
+      "id_locker": 1,
+      "status": 1
+    },
+    {
+      "id": 2,
+      "username": "admin",
+      "password": "password123"
+    },
+    {
+      "id": 3,
+      "username": "admin",
+      "password": "password123"
+    },
+    {
+      "id": 4,
+      "username": "admin",
+      "password": "password123"
+    },
+    {
+      "id": 5,
+      "username": "admin",
+      "password": "password123"
+    },
+    {
+      "id": 6,
+      "username": "admin",
+      "password": "password123"
+    },
+    {
+      "id": 7,
+      "username": "admin",
+      "password": "password123"
+    },
+    {
+      "id": 8,
+      "username": "admin",
+      "password": "password123"
+    },
+    {
+      "id": 25,
+      "username": "admin",
+      "password": "123456"
+    },
+    {
+      "id": 26,
+      "username": "admin",
+      "password": "123456"
+    },
+    {
+      "id": 27,
+      "username": "admin",
+      "password": "123456"
+    },
+    {
+      "username": "admin",
+      "password": "123456",
+      "id": 28
+    },
+    {
+      "username": "admin",
+      "password": "123456",
+      "id": 29
+    },
+    {
+      "username": "admin",
+      "password": "123456",
+      "id": 30
+    },
+    {
+      "username": "admin",
+      "password": "123456",
+      "id": 31
+    },
+    {
+      "username": "admin",
+      "password": "123456",
+      "id": 32
+    },
+    {
+      "username": "admin",
+      "password": "123456",
+      "id": 33
+    },
+    {
+      "username": "admin",
+      "password": "123456",
+      "id": 34
+    },
+    {
+      "username": "admin",
+      "password": "123456",
+      "id": 35
+    },
+    {
+      "username": "admin",
+      "password": "123456",
+      "id": 36
+    },
+    {
+      "id": 37
+    },
+    {
+      "id": 38
+    },
+    {
+      "id": 39
+    },
+    {
+      "id": 40
+    },
+    {
+      "id": 41
+    },
+    {
+      "id": 42
+    },
+    {
+      "id": 43
+    },
+    {
+      "id": 44
+    },
+    {
+      "id": 45
+    },
+    {
+      "id": 46
+    },
+    {
+      "id": 47
+    },
+    {
+      "id": 48
+    },
+    {
+      "id": 49
+    },
+    {
+      "id": 50
+    },
+    {
+      "id": 51
+    },
+    {
+      "id": 52
+    }
+  ],
+  "current-user": [
+    {
+      "id": 1,
+      "username": "12313",
+      "active": 1,
+      "fullname": "Administrator",
+      "phone": "0917558807",
+      "gender": 1,
+      "link_image": "https://via.placeholder.com/150",
+      "id_role": 1,
+      "id_locker": 1,
+      "status": 1
+    }
+  ],
+  "locker": [
+    {
+      "id": 1,
+      "description": "Electronic Locker"
+    },
+    {
+      "id": 2,
+      "description": "Standard Locker"
+    },
+    {
+      "id": 3,
+      "description": "Large Locker"
+    },
+    {
+      "id": 4,
+      "description": "Small Locker"
+    },
+    {
+      "id": 5,
+      "description": "Medium Locker"
+    }
+  ],
+  "item": [
+    {
+      "id": 1,
+      "name": "Item 1",
+      "description": "Description of Item 1",
+      "id_locker": 1,
+      "id_status": 1,
+      "received_time": "2024-06-28T08:00:00Z",
+      "returned_time": "2024-07-05T17:00:00Z"
+    },
+    {
+      "id": 2,
+      "name": "Item 2",
+      "description": "Description of Item 2",
+      "id_locker": 2,
+      "id_status": 1,
+      "received_time": "2024-06-28T08:00:00Z",
+      "returned_time": "2024-07-05T17:00:00Z"
+    },
+    {
+      "id": 3,
+      "name": "Item 3",
+      "description": "Description of Item 3",
+      "id_locker": 3,
+      "id_status": 1,
+      "received_time": "2024-06-28T08:00:00Z",
+      "returned_time": "2024-07-05T17:00:00Z"
+    }
+  ],
+  "survey": [
+    {
+      "id": 1,
+      "innitiated_date": "2024-06-28T08:00:00Z",
+      "description": "Survey Form 1",
+      "id_user": 1
+    },
+    {
+      "id": 2,
+      "innitiated_date": "2024-06-28T08:00:00Z",
+      "description": "Survey Form 2",
+      "id_user": 1
+    }
+  ],
+  "paid-invoices": [
+    {
+      "id": 1,
+      "status": 1,
+      "description": "Payment for Invoice 1",
+      "user_id": 1,
+      "fee_id": 1,
+      "date_of_payment": "2024-06-28"
+    },
+    {
+      "id": 2,
+      "status": 1,
+      "description": "Payment for Invoice 2",
+      "user_id": 2,
+      "fee_id": 2,
+      "date_of_payment": "2024-06-28"
+    },
+    {
+      "id": 3,
+      "status": 0,
+      "description": "Payment for Invoice 3",
+      "user_id": 1,
+      "fee_id": 3,
+      "date_of_payment": "2024-06-28"
+    }
+  ],
+  "fee": [
+    {
+      "id": 1,
+      "price": 50,
+      "name": "Membership Fee",
+      "description": "Annual membership fee",
+      "active": 1
+    },
+    {
+      "id": 2,
+      "price": 20,
+      "name": "Service Fee",
+      "description": "Monthly service fee",
+      "active": 1
+    },
+    {
+      "id": 3,
+      "price": 10,
+      "name": "Locker Fee",
+      "description": "Monthly locker rental fee",
+      "active": 1
+    }
+  ]
 }

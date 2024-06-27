@@ -5,16 +5,16 @@ const SurveyPage = () => {
   const [surveys, setSurvey] = useState([]);
 
   useEffect(() => {
-    const handlesurvey = async (evt) => {
-      evt.preventDefault();
+    const handlesurvey = async () => {
 
       try {
-        let res = await authApi.get(endpoints["load-survey"]);
+        let res = await Apis.get(endpoints["load-survey"]);
         setSurvey(res.data)
       } catch (error) {
         console.log(error);
       }
     };
+    handlesurvey();
   },[]);
 
   return (
@@ -22,8 +22,8 @@ const SurveyPage = () => {
         <h1>Các khảo sát</h1>
         <ul>
             {surveys.map(survey => (
-                <li key={survey.surveyId}>
-                    <Link to={`surveys/${survey.surveyId}/`}>{survey.surveyId}</Link>
+                <li key={survey.id}>
+                    <Link to={`/survey/${survey.id}/`}>{survey.id}</Link>
                 </li>
             ))}
         </ul>

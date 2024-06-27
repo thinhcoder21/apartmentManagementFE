@@ -1,31 +1,16 @@
 import Swal from "sweetalert2";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Avatar } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { MyUserContext } from "../../configs/Context";
 import { useContext, useEffect, useState } from "react";
 import Apis, { endpoints } from "../../configs/Apis";
 import "./Header.css";
 import { MyDispatchContext } from "../../configs/Context";
+import { Image, Nav } from "react-bootstrap";
 const Header = () => {
-  const [user, dispatch] = useContext(MyUserContext);
+  const user = useContext(MyUserContext);
   const navigate = useNavigate();
-  const [avatarURL, setAvatarURL] = useState(null);
-
-  useEffect(() => {
-    loadAvatar();
-  }, []);
-
-  const loadAvatar = async () => {
-    try {
-      const response = await Apis.get(endpoints["load-avatar"](user.id));
-      if (response.data && response.data.link_image) {
-        setAvatarURL(response.data.link_image);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const logout = () => {
     Swal.fire({
@@ -37,22 +22,31 @@ const Header = () => {
       confirmButtonText: "Đồng ý",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        dispatch({ type: "ADMIN_LOGOUT" });
         navigate("/login");
       }
     });
   };
+
+  
+
   return (
     <div className="flex bg-[#FFFFFF] items-center justify-between  h-[74px] w-full">
       <div className="flex items-center">
         <h1 className="ml-5 text-lg font-bold text-green-700"> Green House</h1>
       </div>
       <div className="flex items-center mx-5 space-x-3">
-        {avatarURL ? (
-          <Avatar alt="Avatar" src="avatarURL" className="avatar" />
-        ) : (
-          <Avatar className="avatar" />
-        )}
+      <Nav className="me-auto">
+        {user === null ? <>
+            <Link to="/login" className="nav-link text-info">
+              Đăng nhập
+            </Link>
+          </>:<>
+            <Link to="/" className="nav-link text-success">
+              <Image src={user.link_image} width="40" height='40' roundedCircle />{" "}
+              {user.fullname}
+            </Link>
+          </>}
+         </Nav>
         <LogoutIcon
           onClick={logout}
           className="transition-all cursor-pointer hover:scale-125 "
